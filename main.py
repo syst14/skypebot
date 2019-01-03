@@ -5,7 +5,7 @@ import json
 from threading import Thread
 from flask import request, Flask
 from twitter import twitter
-from bothelper import Bothelper
+from bothelper import BotHelper
 
 FLASK = Flask(__name__)
 APP_ID = 'YOUR_APP_ID'
@@ -55,8 +55,7 @@ def handle():
     if not data.get('text'):
         #logic for no message request
         return 'success'
-    helper = Bothelper(data, TOKEN['access_token'])
-    payload = helper.payload
+    helper = BotHelper(data, TOKEN['access_token'])
     '''
     switcher to activate\deactivate gamemode (input message lenth counter)
     '''

@@ -2,7 +2,7 @@ import re
 import requests
 import json
 
-class Bothelper():
+class BotHelper():
     def __init__(self, data,    #type: mapping
                 token           #type: string
                 ):
