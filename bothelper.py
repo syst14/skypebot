@@ -11,7 +11,7 @@ class BotHelper():
         self.payload = {
             "type": "message",
             "from": {
-                    "id": self.data['recipient']['id'],
+                    "id": 'skybot-avitiuk@2kCf01tTXR0',
                     "name": "skybot-avitiuk"
                 },
             "conversation": {
@@ -23,10 +23,16 @@ class BotHelper():
         '''
         requestes to bot framework api sender
         '''
+        if not self.data.get('serviceUrl'):
+            self.data.update({'serviceUrl':'https://smba.trafficmanager.net/apis/'})
         url = self.data['serviceUrl'] + '/v3/conversations/{}/activities/'.format(self.data['conversation']['id'])
         headers = {'Authorization': 'Bearer ' + self.token,
                    'content-type': 'application/json; charset=utf8'}
         requests.post(url, headers=headers, data=json.dumps(self.payload))
+        # print '--------MSG--------'
+        # print self.payload['text']
+        # print self.payload['conversation']['id']
+        # print '------SENT-------'
         try:
             #text cleaner
             del self.payload['text']
@@ -48,3 +54,19 @@ class BotHelper():
         usr = re.findall('@\w+', self.data['text'])
         if usr:
             return str(usr[0].strip()).lower()
+            
+    @staticmethod
+    def tocelsium(temp):
+        '''
+        weather converter
+        '''
+        kelvin_const = -273.15
+        celsium = str(float(temp) + kelvin_const)
+        return celsium + u' \xb0C'.encode('utf8')
+    @staticmethod
+    def data_formatter(data, id):
+        '''
+        helper for out of chat input data
+        '''
+        data.update({"conversation":{"id":id}})
+        return data
