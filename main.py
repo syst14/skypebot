@@ -4,7 +4,7 @@ import json
 from threading import Thread
 from flask import request, Flask
 from twitter import twitter
-from bothelper import Bothelper
+from bothelper import BotHelper
 import redis
 
 FLASK = Flask(__name__)
@@ -58,8 +58,8 @@ def weather_handler(temp):
     send tempreture chats with enabled notifications
     '''
     for convs in NOTIFY:
-        data = Bothelper.data_formatter({},convs)
-        helper = Bothelper(data, TOKEN['access_token'])
+        data = BotHelper.data_formatter({},convs)
+        helper = BotHelper(data, TOKEN['access_token'])
         temp_upd = helper.tocelsium(temp)
         notification_msg = "Latest update regarding wheather, current tempreture is {} now!".format(temp_upd)
         helper.add_text(notification_msg)
@@ -88,7 +88,7 @@ def handle():
         #logic for no message request
         data.update({"text":""})
         #return 'success'
-    helper = Bothelper(data, TOKEN['access_token'])
+    helper = BotHelper(data, TOKEN['access_token'])
     payload = helper.payload
     '''
     switcher to activate\deactivate gamemode (input message lenth counter)
@@ -165,8 +165,8 @@ def rest_sender():
     print input_data
     if not input_data.get('conversation').get('id') or not input_data.get('text'):
         return 'bad request' #400 
-    data = Bothelper.data_formatter({},input_data['conversation']['id'])
-    helper = Bothelper(data, TOKEN['access_token'])
+    data = BotHelper.data_formatter({},input_data['conversation']['id'])
+    helper = BotHelper(data, TOKEN['access_token'])
     helper.add_text(input_data['text'])
     helper.sender()
     return 'success'
