@@ -52,7 +52,7 @@ class BotHelper():
 
     def twitter_usr(self):
         usr = re.findall('@\w+', self.data['text'])
-        if len(usr) > 0:
+        if usr:
             return str(usr[0].strip()).lower()
     @staticmethod
     def tocelsium(temp):

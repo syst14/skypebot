@@ -86,10 +86,9 @@ def handle():
     data = request.get_json()
     if not data.get('text'):
         #logic for no message request
-        data.update({"text":""})
+        data.update({"text":""}) #could be different, depend on environment 
         #return 'success'
     helper = BotHelper(data, TOKEN['access_token'])
-    payload = helper.payload
     '''
     switcher to activate\deactivate gamemode (input message lenth counter)
     and conversation with weather notification
@@ -128,7 +127,8 @@ def handle():
     '''
     block for private chat
     '''
-    if data['id'][-4:] == '0000' or data.get('membersAdded') or '#init' in data['text'].lower():
+    #if data['id'][-4:] == '0000' or data.get('membersAdded') or '#init' in data['text'].lower():
+    if data.get('membersAdded') or '#init' in data['text'].lower():
         #bot's greetings
         helper.add_text('Hello Human (wave)')
         helper.sender()
