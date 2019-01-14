@@ -54,6 +54,7 @@ class BotHelper():
         usr = re.findall('@\w+', self.data['text'])
         if usr:
             return str(usr[0].strip()).lower()
+            
     @staticmethod
     def tocelsium(temp):
         '''
