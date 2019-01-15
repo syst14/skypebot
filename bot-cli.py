@@ -2,8 +2,6 @@ import sys
 from bothelper import BotHelper
 from main import get_token
 
-exception_msg = 'Expected arguments: "bot-cli.py message conversationID,N...'
-
 args = sys.argv
 if len(args) == 3:
     token = get_token()
@@ -14,4 +12,4 @@ if len(args) == 3:
         helper.sender()
     print 'messages sent'
 else:
-    print 'Expected arguments: "bot-cli.py message [conversationID,N...]'
+    print 'Expected arguments: "bot-cli.py message conversationID,N...'
